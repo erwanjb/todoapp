@@ -70,13 +70,13 @@
         </ul>
          <!-- partie pour ajouter une tache -->
         <div id="addTask" class="contener">
-          <h2>ajouter une tâche</h2>
+          <h2>Ajouter une tâche</h2>
           <input type="text" v-model="task">
           <button @click="addTask()">ajouter</button>
         </div>
         <!-- partie pour filter par ordre décroissant -->
         <div id="filter" class="contener">
-          <h2>filtrer les taches par ordre décroissant</h2>
+          <h2>Filtrer les taches par ordre décroissant</h2>
           <button @click="filter()">filtrer</button>
           <ul v-for="t in Array2">
             <li>{{t.task}} état :{{t.date}}<span v-if="!t.date">non fait</span></li>
