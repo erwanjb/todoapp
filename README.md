@@ -8,9 +8,10 @@ J'ai utilisé axios qui permet de faire une requete ajax beaucoup plus facilemen
 
 Les deux versions en Vuejs et Extjs sont accessibles par des liens des deux cotés.
 
-Je n'ai pas pu afficher les photos de chats car j'ai utilisé une requête ajax et j'ai une restriction sur le domaine, je pense ne pas avoir utilisé la bonne méthode pour utiliser le endpoint. Cependant j'ai laissé en commentaire l'utilisation du axios pour ne pas bloqué le reste du programme et pouvoir y revenir.
 
 La partie front se trouve dans "index.html" et "extapp.html".
+
+
 
 
 PARTIE BACK

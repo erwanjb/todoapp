@@ -124,21 +124,19 @@
           addTask(){
 
             if(this.task){
-              //mon axios ne fonctionne pas a cause de la restriction sur le domaine
-
-              // axios({
-              //   method: "get",
-              //   url: "http://aws.random.cat/meow",
-              // }).then(res=>{
-              //   var cat =res.data.file;
+              axios({
+                method: "get",
+                url: "https://aws.random.cat/meow",
+              }).then(res=>{
+                var cat =res.data.file;
                 var a ={
                   bool:false,
                   task: this.task,
                   date: null,
-                  cat: null //remplacer par null par cat
+                  cat: cat
                 };
                 this.Array.push(a);
-              // })
+              })
             }
           },
           //fonction qui supprime une tache
@@ -189,34 +187,32 @@
           generate(){
             var nb1 = Math.floor(Math.random()*5);
             var nb2 = Math.floor(Math.random()*5);
-            //le axios ne fonctionne pas 
 
-            // axios({
-            //   method: "get",
-            //   url: "http://aws.random.cat/meow",
-            // }).then(res=>{
-            //   var cat= res.data.file;
+            axios({
+              method: "get",
+              url: "https://aws.random.cat/meow",
+            }).then(res=>{
+              var cat= res.data.file;
               var Obj = {
                 bool:false,
                 task:this.action[nb1]+" "+this.object[nb2],
                 date: null,
-                cat: null //remplacer null par cat
+                cat: cat
               }
               this.Array.push(Obj);
-            // })
+            })
           }
         },
         //ce déclanche quand les éléments sont intégrés au DOM
         mounted(){
-          // j'ai laissé ce axios car il n'impacte pas sur mon programme
-          axios({
-            method: "get",
-            url: "https://aws.random.cat/meow",
-          }).then(res=>{
-            for(let i = 0; i<this.Array.length;i++){
-              this.Array[i].cat= res.data.file;
-            }
-          })
+          for(let i = 0; i<this.Array.length;i++){          
+            axios({
+              method: "get",
+              url: "https://aws.random.cat/meow",
+            }).then(res=>{
+                this.Array[i].cat= res.data.file;
+            })
+          }
         }
       });
     </script>
