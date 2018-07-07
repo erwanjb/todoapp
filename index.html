@@ -127,7 +127,7 @@
               axios({
                 method: "get",
                 url: "http://aws.random.cat/meow",
-                credentials: 'same-origin' 
+                credentials: 'include' 
               }).then(res=>{
                 var cat =res.data.file;
                 var a ={
@@ -191,9 +191,9 @@
             axios({
               method: "get",
               url: "http://aws.random.cat/meow",
-              credentials: 'same-origin' 
+              credentials: 'include' 
             }).then(res=>{
-              var cat= res.data.file;
+              var scat= res.data.file;
               var Obj = {
                 bool:false,
                 task:this.action[nb1]+" "+this.object[nb2],
@@ -209,7 +209,7 @@
           axios({
             method: "get",
             url: "http://aws.random.cat/meow",
-            credentials: 'same-origin' 
+            credentials: 'include' 
           }).then(res=>{
             for(let i = 0; i<this.Array.length;i++){
               this.Array[i].cat= res.data.file;
