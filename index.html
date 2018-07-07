@@ -120,13 +120,16 @@
         },
         //fonctions déclencher par un bouton
         methods:{
+          //fonction qui ajoute une tache
           addTask(){
+
             if(this.task){
               axios({
                 method: "get",
-                url: "http://aws.random.cat/meow"
+                url: "http://aws.random.cat/meow",
+                credentials: 'same-origin' 
               }).then(res=>{
-                cat= res.data.file;
+                var cat =res.data.file;
                 var a ={
                   bool:false,
                   task: this.task,
@@ -135,14 +138,15 @@
                 };
                 this.Array.push(a);
               })
-              
             }
           },
+          //fonction qui supprime une tache
           delet(e){
             e.preventDefault();
             console.log(e.target.parentNode)
             e.target.parentNode.parentNode.parentNode.removeChild(e.target.parentNode.parentNode);
           },
+          //fonction qui est executée quand la checkbox est cochée
           done(e,i){
             if(e.target.checked){
               this.Array[e.target.value].bool = true;
@@ -152,6 +156,7 @@
               this.Array[e.target.value].date = null;
             }
           },
+          //fonction qui filtre
           filter(){
             var tab = [];
             for (let i=0; i<this.Array.length; i++){
@@ -179,15 +184,16 @@
             }
             this.bool=!this.bool;
           },
+          //fonction qui génère aléatoirement une tache
           generate(){
             var nb1 = Math.floor(Math.random()*5);
             var nb2 = Math.floor(Math.random()*5);
-            var cat;
             axios({
               method: "get",
-              url: "http://aws.random.cat/meow"
+              url: "http://aws.random.cat/meow",
+              credentials: 'same-origin' 
             }).then(res=>{
-              cat= res.data.file;
+              var cat= res.data.file;
               var Obj = {
                 bool:false,
                 task:this.action[nb1]+" "+this.object[nb2],
@@ -202,7 +208,8 @@
         mounted(){
           axios({
             method: "get",
-            url: "http://aws.random.cat/meow"
+            url: "http://aws.random.cat/meow",
+            credentials: 'same-origin' 
           }).then(res=>{
             for(let i = 0; i<this.Array.length;i++){
               this.Array[i].cat= res.data.file;
