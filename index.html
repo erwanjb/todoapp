@@ -211,7 +211,7 @@
           // j'ai laissé ce axios car il n'impacte pas sur mon programme
           axios({
             method: "get",
-            url: "http://aws.random.cat/meow",
+            url: "https://aws.random.cat/meow",
           }).then(res=>{
             for(let i = 0; i<this.Array.length;i++){
               this.Array[i].cat= res.data.file;
