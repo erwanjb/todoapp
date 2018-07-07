@@ -11,6 +11,10 @@ Les deux versions en Vuejs et Extjs sont accessibles par des liens des deux cot√
 
 La partie front se trouve dans "index.html" et "extapp.html".
 
+Le axios peut quelques fois ne pas s'effectuer correctement, dans ce cas la le mettre en commentaire dans le fichier "index.html" pour que le programme puisse s'effectuer correctement, mais on aura pas les photos de chats malheureusement.
+
+
+
 
 
 

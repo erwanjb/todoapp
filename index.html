@@ -12,14 +12,27 @@
     <!-- partie css -->
     <style type="text/css">
       body{
-        margin:0auto;
+        text-align: center;
       }
-      #todo li{
+      #todo li, #done li{
         display: flex;
+        justify-content: center;
       }
       img{
         width: 200px;
         height: 200px;
+      }
+      .contener{
+        border-bottom: 2px solid red;
+        width: 60%;
+        margin: 0 auto;
+        padding: 50px;
+      }
+      ul{
+        border-bottom: 2px solid blue;
+        width: 60%;
+        margin: 0 auto;
+        padding: 50px;
       }
     </style>
   </head>
@@ -56,13 +69,13 @@
           </li>
         </ul>
          <!-- partie pour ajouter une tache -->
-        <div id="addTask">
+        <div id="addTask" class="contener">
           <h2>ajouter une tâche</h2>
           <input type="text" v-model="task">
           <button @click="addTask()">ajouter</button>
         </div>
         <!-- partie pour filter par ordre décroissant -->
-        <div id="filter">
+        <div id="filter" class="contener">
           <h2>filtrer les taches par ordre décroissant</h2>
           <button @click="filter()">filtrer</button>
           <ul v-for="t in Array2">
@@ -70,7 +83,7 @@
           </ul>
         </div>
         <!-- partie pour générer une tache aléatoire -->
-        <div id="generate">
+        <div id="generate" class="contener">
           <h2>Générer une tache aléatoire</h2>
           <button @click="generate()">Générer</button>
         </div>
