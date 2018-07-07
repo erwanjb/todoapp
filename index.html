@@ -124,20 +124,21 @@
           addTask(){
 
             if(this.task){
-              axios({
-                method: "get",
-                url: "http://aws.random.cat/meow",
-                credentials: 'include' 
-              }).then(res=>{
-                var cat =res.data.file;
+              //mon axios ne fonctionne pas a cause de la restriction sur le domaine
+
+              // axios({
+              //   method: "get",
+              //   url: "http://aws.random.cat/meow",
+              // }).then(res=>{
+              //   var cat =res.data.file;
                 var a ={
                   bool:false,
                   task: this.task,
                   date: null,
-                  cat: cat
+                  cat: null //remplacer par null par cat
                 };
                 this.Array.push(a);
-              })
+              // })
             }
           },
           //fonction qui supprime une tache
@@ -158,7 +159,6 @@
           },
           //fonction qui filtre
           filter(){
-            console.log("hello");
             var tab = [];
             for (let i=0; i<this.Array.length; i++){
               if(this.Array[i].date){
@@ -189,28 +189,29 @@
           generate(){
             var nb1 = Math.floor(Math.random()*5);
             var nb2 = Math.floor(Math.random()*5);
-            axios({
-              method: "get",
-              url: "http://aws.random.cat/meow",
-              credentials: 'include' 
-            }).then(res=>{
-              var cat= res.data.file;
+            //le axios ne fonctionne pas 
+
+            // axios({
+            //   method: "get",
+            //   url: "http://aws.random.cat/meow",
+            // }).then(res=>{
+            //   var cat= res.data.file;
               var Obj = {
                 bool:false,
                 task:this.action[nb1]+" "+this.object[nb2],
                 date: null,
-                cat: cat
+                cat: null //remplacer null par cat
               }
               this.Array.push(Obj);
-            })
+            // })
           }
         },
         //ce déclanche quand les éléments sont intégrés au DOM
         mounted(){
+          // j'ai laissé ce axios car il n'impacte pas sur mon programme
           axios({
             method: "get",
             url: "http://aws.random.cat/meow",
-            credentials: 'include' 
           }).then(res=>{
             for(let i = 0; i<this.Array.length;i++){
               this.Array[i].cat= res.data.file;
