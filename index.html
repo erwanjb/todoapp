@@ -158,6 +158,7 @@
           },
           //fonction qui filtre
           filter(){
+            console.log("hello");
             var tab = [];
             for (let i=0; i<this.Array.length; i++){
               if(this.Array[i].date){
@@ -193,7 +194,7 @@
               url: "http://aws.random.cat/meow",
               credentials: 'include' 
             }).then(res=>{
-              var scat= res.data.file;
+              var cat= res.data.file;
               var Obj = {
                 bool:false,
                 task:this.action[nb1]+" "+this.object[nb2],
