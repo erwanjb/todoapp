@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>todo</title>
+</head>
+<body>
+	<h1>Ma todolist</h1>
+	<ul>
+		<% tab.forEach(function(t,i) { %>
+			<li><%= t %><a href="/todo_supprimer/<%= i %>">X</a></li>
+		<% }); %>
+	</ul>
+	<form action="/todo_ajouter/" method="post">
+		<fieldset>
+	        <label for="todo">Ajouter une tache</label>
+	        <input type="text" name="todo" id="todo" autofocus>
+	        <input type="submit">
+        </fieldset>
+    </form>
+    <form action="/todo_modifier/" method="post">
+    	<fieldset>
+	        <label for="change">modifier une tache</label>
+	        <input type="text" name="change" id="change" autofocus><br>
+	        <% tab.forEach(function(t,i) { %>
+				<label for="rad<%= i %>"><%= t %></label><input type="radio" name="change2" id="rad<%= i %>"><br>
+			<% }); %>
+	        <input type="submit">
+        </fieldset>
+    </form>
+</body>
+</html>

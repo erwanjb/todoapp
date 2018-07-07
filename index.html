@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1">
+    <title>ToDoApp</title>
+    <!-- utilisation de bootstrap -->
+    <link type="text/css" rel="stylesheet" href="//unpkg.com/bootstrap/dist/css/bootstrap.min.css"/>
+    <link type="text/css" rel="stylesheet" href="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.css"/>
+    <!-- utilisation de fontawesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
+    <!-- partie css -->
+    <style type="text/css">
+      body{
+        margin:0auto;
+      }
+      #todo li{
+        display: flex;
+      }
+      img{
+        width: 200px;
+        height: 200px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <main>
+        <h1>ToDo App</h1>
+        <h2>A Faire</h2>
+        <!-- affiche les tâches à faire -->
+        <ul id="todo">
+          <li v-for="(t,i) in Array" v-if="!t.bool">
+            <input type="checkbox" @change="done($event)" :value="i">
+            <b-btn v-b-modal="t.task+i">{{t.task}}</b-btn>
+            <b-modal :id="t.task+i" title="tache">
+              <p class="my-4">tache :{{t.task}} </p>
+              <p class="my-4">état :<span v-if="!t.date">pas fait</span><span v-else>fait le: {{t.date}}</span></p>
+              <img :src="t.cat">
+            </b-modal>
+            <a href="" @click="delet($event)"><i class="fas fa-trash-alt"></i></a>
+          </li>
+        </ul>
+        <h2>Faits</h2>
+        <!-- affiche les tâches faites -->
+        <ul id="done">
+          <li v-for="(t,i) in Array" v-if="t.bool">
+            <input type="checkbox" @change="done($event)" :value="i" checked>
+            <b-btn v-b-modal="t.task+i">{{t.task}}</b-btn>
+            <b-modal :id="t.task+i" title="tache">
+              <p class="my-4">tache :{{t.task}} </p>
+              <p class="my-4">état :<span v-if="!t.date">pas fait</span><span v-else>fait le: {{t.date}}</span></p>
+              <img :src="t.cat">
+            </b-modal>
+            <a href="" @click="delet($event)"><i class="fas fa-trash-alt"></i></a>
+          </li>
+        </ul>
+         <!-- partie pour ajouter une tache -->
+        <div id="addTask">
+          <h2>ajouter une tâche</h2>
+          <input type="text" v-model="task">
+          <button @click="addTask()">ajouter</button>
+        </div>
+        <!-- partie pour filter par ordre décroissant -->
+        <div id="filter">
+          <h2>filtrer les taches par ordre décroissant</h2>
+          <button @click="filter()">filtrer</button>
+          <ul v-for="t in Array2">
+            <li>{{t.task}} état :{{t.date}}<span v-if="!t.date">non fait</span></li>
+          </ul>
+        </div>
+        <!-- partie pour générer une tache aléatoire -->
+        <div id="generate">
+          <h2>Générer une tache aléatoire</h2>
+          <button @click="generate()">Générer</button>
+        </div>
+        <a href="extapp.html">lien vers la version extjs</a>
+      </main>
+    </div>
+    <!-- utilisation d'axios -->
+    <script src="./node_modules/axios/dist/axios.js"></script>
+    <!-- utilisation de vuejs -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.16/vue.js"></script>
+    <!-- utilisation de boostrap -->
+    <script src="//unpkg.com/babel-polyfill@latest/dist/polyfill.min.js"></script>
+    <script src="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.js"></script>
+    <script>
+      var app = new Vue({
+        el: '#app',
+        //data pour le binding
+        data : {
+          Array:[{
+            bool:false,
+            task:"tache 1",
+            date: null,
+            cat: null
+          },{
+            bool:false,
+            task:"tache 2",
+            date: null,
+            cat:null
+          }],
+          Array2:[],
+          task:null,
+          bool:true,
+          action:[
+            "aller voir",
+            "manger avec",
+            "parler à",
+            "jouer avec",
+            "partir avec"
+          ],
+          object:[
+            "Pierre",
+            "Paul",
+            "Jacque",
+            "Benoit",
+            "Arthur"
+          ]
+        },
+        //fonctions déclencher par un bouton
+        methods:{
+          addTask(){
+            if(this.task){
+              axios({
+                method: "get",
+                url: "http://aws.random.cat/meow"
+              }).then(res=>{
+                cat= res.data.file;
+                var a ={
+                  bool:false,
+                  task: this.task,
+                  date: null,
+                  cat: cat
+                };
+                this.Array.push(a);
+              })
+              
+            }
+          },
+          delet(e){
+            e.preventDefault();
+            console.log(e.target.parentNode)
+            e.target.parentNode.parentNode.parentNode.removeChild(e.target.parentNode.parentNode);
+          },
+          done(e,i){
+            if(e.target.checked){
+              this.Array[e.target.value].bool = true;
+              this.Array[e.target.value].date = new Date();
+            }else{
+              this.Array[e.target.value].bool = false;
+              this.Array[e.target.value].date = null;
+            }
+          },
+          filter(){
+            var tab = [];
+            for (let i=0; i<this.Array.length; i++){
+              if(this.Array[i].date){
+                tab.push(this.Array[i]);
+              }else{
+                this.Array2.push(this.Array[i]);
+              }
+            }
+            for(let i = 0; i < tab.length; i++) {
+              for (let j = 0; j < tab.length - i-1; j++) {
+                console.log(tab[j+1]);
+                if(tab[j].date<tab[j+1].date){
+                  var temp = tab[j];
+                  tab[j]=tab[j+1];
+                  tab[j+1]=temp;
+                }
+              }
+            }
+            for(let i = 0; i < tab.length; i++) {
+              this.Array2.push(tab[i]);
+            }
+            if(!this.bool){
+              this.Array2=[];
+            }
+            this.bool=!this.bool;
+          },
+          generate(){
+            var nb1 = Math.floor(Math.random()*5);
+            var nb2 = Math.floor(Math.random()*5);
+            var cat;
+            axios({
+              method: "get",
+              url: "http://aws.random.cat/meow"
+            }).then(res=>{
+              cat= res.data.file;
+              var Obj = {
+                bool:false,
+                task:this.action[nb1]+" "+this.object[nb2],
+                date: null,
+                cat: cat
+              }
+              this.Array.push(Obj);
+            })
+          }
+        },
+        //ce déclanche quand les éléments sont intégrés au DOM
+        mounted(){
+          axios({
+            method: "get",
+            url: "http://aws.random.cat/meow"
+          }).then(res=>{
+            for(let i = 0; i<this.Array.length;i++){
+              this.Array[i].cat= res.data.file;
+            }
+          })
+        }
+      });
+    </script>
+  </body>
+</html>
